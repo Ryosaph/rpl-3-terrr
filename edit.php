@@ -56,7 +56,6 @@ if (isset($_POST['update'])) {
     <meta charset="UTF-8">
     <title>Edit Inventaris</title>
     <link rel="stylesheet" href="style4.css">
-
 </head>
 
 <body>
