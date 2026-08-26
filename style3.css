@@ -1,0 +1,121 @@
+/* --- Reset & Basic Style --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* --- Judul Halaman --- */
+h2 {
+    color: #2c3e50;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- Container Form (Card Style) --- */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 480px;
+}
+
+/* --- Field Label --- */
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #34495e;
+    margin-bottom: 6px;
+    margin-top: 15px;
+}
+
+form > label:first-of-type {
+    margin-top: 0;
+}
+
+/* --- Input Text, Number, & Select Dropdown --- */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 1px solid #dcdfe6;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+/* Effect saat Input / Select di-klik */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* --- Tombol Submit & Link Batal --- */
+button[type="submit"] {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 25px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Link Batal */
+form a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+form a:hover {
+    color: #c0392b;
+    text-decoration: underline;
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 480px) {
+    body {
+        padding: 20px 15px;
+    }
+
+    form {
+        padding: 20px;
+    }
+}
