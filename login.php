@@ -1,46 +1,55 @@
+<?php
+session_start();
+require 'koneksi.php';
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $result = mysqli_query($koneksi, "SELECT * FROM admin WHERE username='$username'");
+
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        
+        // Verifikasi password hash
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['login'] = true;
+            $_SESSION['admin_id'] = $row['id'];
+            $_SESSION['admin_nama'] = $row['nama'];
+
+            echo "<script>alert('Login berhasil!'); window.location='dashboard.php';</script>";
+            exit;
+        }
+    }
+    
+    $error = true;
+}
+?>
+
 <!DOCTYPE html>
-<html lang="id">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Form Login Sederhana</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login Admin</title>
 </head>
+
 <body>
-    <div class="login-box">
-        <h2>Silakan Masuk</h2>
-        <form id="loginForm">
-            <!-- Form -->
-            <label for="username">Nama Pengguna</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Kata Sandi</label>
-            <input type="password" id="password" name="password" required>
-            
-            <button type="submit">Masuk</button>
-        </form>
-    </div>
+    <h2>Form Login Admin</h2>
 
-    <script>
-        // Ambil elemen form
-        const loginForm = document.getElementById('loginForm');
+    <?php if (isset($error)) : ?>
+    <p style="color: red;">Username atau password salah!</p>
+    <?php endif; ?>
 
-        loginForm.addEventListener('submit', function(event) {
-            // Mencegah form melakukan reload halaman atau request HTTP POST bawaan browser
-            event.preventDefault();
+    <form action="" method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="username" required><br><br>
 
-            // Ambil value dari input
-            const usernameInput = document.getElementById('username').value.trim();
-            const passwordInput = document.getElementById('password').value;
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
 
-            // Logic pengecekan
-            if (usernameInput === 'admin' && passwordInput === '123') {
-                // Redirect ke dashboard.html jika benar
-                window.location.href = 'dashboard.html';
-            } else {
-                // Alert jika salah
-                alert('Username atau Password salah!');
-            }
-        });
-    </script>
+        <button type="submit" name="login">Login</button>
+    </form>
+    <p>Belum punya akun? <a href="register.php">Daftar di sini</a></p>
 </body>
+
 </html>
