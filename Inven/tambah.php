@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'koneksi.php';
+require '../koneksi.php';
 
 // Proteksi halaman login
 if (!isset($_SESSION['login'])) {
@@ -39,7 +39,7 @@ if (isset($_POST['tambah'])) {
 <head>
     <meta charset="UTF-8">
     <title>Tambah Inventaris</title>
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style5.css">
 </head>
 
 <body>

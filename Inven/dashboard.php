@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'koneksi.php';
+require '../koneksi.php';
 
 // Proteksi halaman: Cek apakah user sudah login
 if (!isset($_SESSION['login'])) {
@@ -23,17 +23,31 @@ $result = mysqli_query($koneksi, $query);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style2.css">
     <title>Dashboard Inventaris</title>
 </head>
+
 <body>
     <h1 style="text-align: center;">Halo, Selamat Datang <?= htmlspecialchars($_SESSION['admin_nama']); ?>!</h1>
-    <p style="text-align: center;"><a href="logout.php">Logout</a></p>
+    <p style="text-align: center;"><a href="../logout.php">Logout</a></p>
 
     <h2 style="text-align: center;">Data Inventaris Stok</h2>
+
+    <!-- Tombol Navigasi Tambah Data Barang -->
+    <div style="text-align: center; margin-bottom: 15px;">
+        <a href="tambah.php"
+            style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold;">+
+            Tambah Data Barang</a>
+        <a href="../supp/index.php"
+            style="display: inline-block; padding: 8px 16px; background-color: #2857a7; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            Supplier
+        </a>
+    </div>
+
 
     <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto; border-collapse: collapse;">
         <thead>
@@ -67,4 +81,5 @@ $result = mysqli_query($koneksi, $query);
         </tbody>
     </table>
 </body>
+
 </html>

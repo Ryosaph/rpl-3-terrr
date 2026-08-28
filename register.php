@@ -2,57 +2,65 @@
 require 'koneksi.php';
 
 if (isset($_POST['register'])) {
-    $nama     = $_POST['nama'];
-    $username = $_POST['username'];
-    $kontak   = $_POST['kontak'];
-    $email    = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Enkripsi password
+    $nama   = trim($_POST['nama']);
+    $kontak = (int)$_POST['kontak'];
+    $email  = trim($_POST['email']);
 
-    // Cek apakah username/email sudah terdaftar
-    $cek = mysqli_query($koneksi, "SELECT * FROM admin WHERE username='$username' OR email='$email'");
-    if (mysqli_num_rows($cek) > 0) {
-        echo "<script>alert('Username atau Email sudah terdaftar!');</script>";
+    // Cek duplikasi email
+    $stmt_cek = mysqli_prepare($koneksi, "SELECT id FROM admin WHERE email = ?");
+    mysqli_stmt_bind_param($stmt_cek, "s", $email);
+    mysqli_stmt_execute($stmt_cek);
+    mysqli_stmt_store_result($stmt_cek);
+
+    if (mysqli_stmt_num_rows($stmt_cek) > 0) {
+        echo "<script>alert('Email sudah terdaftar!'); window.history.back();</script>";
     } else {
-        $query = "INSERT INTO admin (nama, username, kontak, email, password) 
-                  VALUES ('$nama', '$username', '$kontak', '$email', '$password')";
-        
-        if (mysqli_query($koneksi, $query)) {
-            echo "<script>alert('Registrasi berhasil! Silakan login.'); window.location='login.php';</script>";
+        // Insert data sesuai skema tabel admin (id, nama, kontak, email)
+        $stmt_insert = mysqli_prepare($koneksi, "INSERT INTO admin (nama, kontak, email) VALUES (?, ?, ?)");
+        mysqli_stmt_bind_param($stmt_insert, "sis", $nama, $kontak, $email);
+
+        if (mysqli_stmt_execute($stmt_insert)) {
+            echo "<script>alert('Registrasi berhasil! Silakan login.'); window.location='index.php';</script>";
+            exit;
         } else {
-            echo "Gagal mendaftar: " . mysqli_error($koneksi);
+            echo "<script>alert('Gagal mendaftar: " . mysqli_error($koneksi) . "');</script>";
         }
+        mysqli_stmt_close($stmt_insert);
     }
+    mysqli_stmt_close($stmt_cek);
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
-    <title>Register Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Invenkoryz</title>
+    <link rel="stylesheet" href="style3.css">
 </head>
 
 <body>
-    <h2>Form Register Admin</h2>
-    <form action="" method="POST">
-        <label>Nama Lengkap:</label><br>
-        <input type="text" name="nama" required><br><br>
-
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Kontak (HP):</label><br>
-        <input type="number" name="kontak" required><br><br>
-
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <button type="submit" name="register">Daftar</button>
-    </form>
-    <p>Sudah punya akun? <a href="login.php">Login di sini</a></p>
+    <div class="auth-container">
+        <h2>Form Register Admin</h2>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" name="nama" required>
+            </div>
+            <div class="form-group">
+                <label>Kontak (Angka):</label>
+                <input type="number" name="kontak" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <button type="submit" name="register" class="btn-submit">Daftar</button>
+        </form>
+        <p class="text-center">Sudah punya akun? <a href="index.php">Login di sini</a></p>
+    </div>
 </body>
 
 </html>
