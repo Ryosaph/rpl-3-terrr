@@ -42,6 +42,10 @@ $result = mysqli_query($koneksi, $query);
         <a href="tambah.php"
             style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold;">+
             Tambah Data Barang</a>
+        <a href="../gudang/index.php"
+            style="display: inline-block; padding: 8px 16px; background-color: brown; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            Gudang
+        </a>
         <a href="../supp/index.php"
             style="display: inline-block; padding: 8px 16px; background-color: #2857a7; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold;">
             Supplier
