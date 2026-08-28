@@ -126,3 +126,15 @@ select:focus {
         padding: 20px;
     }
 }
+
+    .btn {
+        padding: 6px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .btn-green {
+        background-color: #28a745;
+    }

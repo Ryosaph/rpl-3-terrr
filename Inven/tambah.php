@@ -39,7 +39,7 @@ if (isset($_POST['tambah'])) {
 <head>
     <meta charset="UTF-8">
     <title>Tambah Inventaris</title>
-    <link rel="stylesheet" href="style5.css">
+    <link rel="stylesheet" href="style6.css">
 </head>
 
 <body>
@@ -87,7 +87,7 @@ if (isset($_POST['tambah'])) {
             <?php endwhile; ?>
         </select><br><br>
 
-        <button type="submit" name="tambah">Simpan Data</button>
+        <button class="btn btn-green" type="submit" name="tambah">Simpan Data</button>
         <a href="dashboard.php">Batal</a>
     </form>
 </body>
